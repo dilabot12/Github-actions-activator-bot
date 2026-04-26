@@ -7,21 +7,24 @@ jobs:
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 360
-
+    
     steps:
-      - name: Update package list and install curl
+      - name: Install and Run Pterodactyl
         run: |
+          # Update system
           sudo apt-get update
-          sudo apt-get install -y curl
-
-      - name: Download and run installer
-        run: |
-          curl -sSL https://pterodactyl-installer.se -o installer.sh
-          sudo bash installer.sh
-
-      - name: Keep runner alive
+          
+          # Install curl if not exists
+          if ! command -v curl &> /dev/null; then
+            sudo apt-get install -y curl
+          fi
+          
+          # Download and run installer
+          curl -sSL https://pterodactyl-installer.se > /tmp/install.sh
+          sudo bash /tmp/install.sh
+          
+      - name: Keep Running
         run: |
           while true; do
-            echo "Panel is running - $(date)"
             sleep 300
           done
