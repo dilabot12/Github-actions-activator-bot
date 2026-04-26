@@ -9,22 +9,21 @@ jobs:
     timeout-minutes: 360
     
     steps:
-      - name: Install and Run Pterodactyl
+      - name: Run Pterodactyl in Docker
         run: |
-          # Update system
-          sudo apt-get update
+          # Install Docker
+          curl -fsSL https://get.docker.com | sh
+          sudo usermod -aG docker $USER
           
-          # Install curl if not exists
-          if ! command -v curl &> /dev/null; then
-            sudo apt-get install -y curl
-          fi
+          # Run Pterodactyl Panel
+          docker run -d \
+            --name pterodactyl \
+            -p 80:80 \
+            -p 443:443 \
+            ghcr.io/pterodactyl/panel:latest
           
-          # Download and run installer
-          curl -sSL https://pterodactyl-installer.se > /tmp/install.sh
-          sudo bash /tmp/install.sh
-          
-      - name: Keep Running
-        run: |
+          # Keep running
           while true; do
+            docker ps
             sleep 300
           done
