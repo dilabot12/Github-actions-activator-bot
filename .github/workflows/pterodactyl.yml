@@ -13,11 +13,4 @@ jobs:
     steps:
       - name: Install Pterodactyl Panel
         run: |
-          bash <(curl -s https://pterodactyl-installer.se)
-          
-      - name: Keep running
-        run: |
-          while true; do
-            echo "Panel is running - $(date)"
-            sleep 300
-          done
+          bash <(curl -s https://pterodactyl-installer
