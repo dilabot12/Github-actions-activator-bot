@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Install Pterodactyl Panel
         run: |
-          bash <(curl -s https://pterodactyl-installer.se)
+          sudo bash <(curl -s https://pterodactyl-installer.se)
           
       - name: Keep running
         run: |
