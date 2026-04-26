@@ -9,9 +9,6 @@ jobs:
     timeout-minutes: 360
     
     steps:
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
-        
       - name: Install Pterodactyl
         run: |
           curl -sSL https://pterodactyl-installer.se | sudo bash
