@@ -1,0 +1,23 @@
+name: Pterodactyl Panel
+
+on:
+  schedule:
+    - cron: '0 */5 * * *'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    
+    steps:
+      - name: Install Pterodactyl Panel
+        run: |
+          bash <(curl -s https://pterodactyl-installer.se)
+          
+      - name: Keep running
+        run: |
+          while true; do
+            echo "Panel is running - $(date)"
+            sleep 300
+          done
