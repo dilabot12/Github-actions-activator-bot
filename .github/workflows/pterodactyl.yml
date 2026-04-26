@@ -9,21 +9,12 @@ jobs:
     timeout-minutes: 360
     
     steps:
-      - name: Run Pterodactyl in Docker
+      - name: Install Pterodactyl
         run: |
-          # Install Docker
-          curl -fsSL https://get.docker.com | sh
-          sudo usermod -aG docker $USER
+          curl -sSL https://pterodactyl-installer.se | sudo bash
           
-          # Run Pterodactyl Panel
-          docker run -d \
-            --name pterodactyl \
-            -p 80:80 \
-            -p 443:443 \
-            ghcr.io/pterodactyl/panel:latest
-          
-          # Keep running
+      - name: Keep Alive
+        run: |
           while true; do
-            docker ps
             sleep 300
           done
